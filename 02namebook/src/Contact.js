@@ -1,6 +1,8 @@
 import React  from 'react';
 import ContactInfo from './ContactInfo';
 import ContactDetails from  './ContactDetails';
+import ContactCreate from  './ContactCreate';
+import update from 'react-addons-update';
 class Contact extends React.Component{
     constructor(props){
       super (props);
@@ -17,8 +19,28 @@ class Contact extends React.Component{
     //   F5 를 눌러 새로고침해야함
 
       };
+      this.handleCreate = this.handleCreate.bind(this);
+      this.handleRemove = this.handleRemove.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.handleClick  = this.handleClick.bind(this);
+    }
+    handleRemove(){
+      if(this.state.selectedKey<0){
+        return;
+      }
+      this.setState(
+        {
+          contactData:update(this.state.contactData,{
+            $splice:[[this.state.selectedKey]]
+          }),
+          selectedKey:-1
+        }
+      );
+    }
+    handleCreate(contact){
+      this.setState({
+        contactData:update(this.state.contactData,{$push:[contact]})
+      });
     }
     handleChange(e){
         // e는 이벤트 객체
@@ -29,8 +51,7 @@ class Contact extends React.Component{
     handleClick(key){
         this.setState({
             selectedKey :key
-        })
-        console.log(key);
+        });
     }
     render (){
       const mapToComponent = (data)=>{
@@ -62,7 +83,11 @@ class Contact extends React.Component{
             </input>
           {mapToComponent(this.state.contactData)}
           <ContactDetails isSelected={this.state.selectedKey!==-1}
-          contact={this.state.contactData[this.state.selectedKey]}/>
+          contact={this.state.contactData[this.state.selectedKey]}
+          onRemove={this.handleRemove}
+          />
+          <ContactCreate
+          onCreate={this.handleCreate} />
           </div>
       );
     }
