@@ -1,0 +1,32 @@
+{
+  "name": "04-react-spa",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "cross-env": "^5.2.0",
+    "query-string": "^6.5.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "^3.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": " cross-env NODE_PATH=src react-scripts start",
+    "build": " cross-env NODE_PATH=src react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
